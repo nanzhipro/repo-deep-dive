@@ -6,9 +6,16 @@ description: |
   Produces publishable public research docs, a transferable methodology, and a seed project where you
   reuse the mindset on a different domain.
 
+  Portable by design: pure Markdown instructions that work as an installed skill or as a prompt file
+  in any LLM runtime. If your environment lacks task lists or sub-agents, run the same workflow
+  sequentially.
+
   深度内化一个开源仓库:从表层(知识/技能)穿透到冰山之下(思维模式/心智 mindset),
   不止学"它是什么",更学作者的决策框架和世界观。产出可公开发布的研究文档 + 可迁移方法论
   + 把 mindset 应用到不同业务场景的种子项目。
+
+  设计上可移植:纯 Markdown 方法论,既可作为 skill 安装,也可直接交给任意 LLM 执行。
+  若环境没有任务清单或子代理能力,按相同 phase 串行执行即可。
 
   **Perfect for:**
   - 想"内化"某个开源仓库的 mindset(不止"会用",而是"会创造类似的东西")
@@ -25,6 +32,15 @@ description: |
 ---
 
 # Repo Deep Dive — 把开源仓库的 mindset 内化到你的认知里
+
+## Runtime Compatibility
+
+这个 skill 是纯 Markdown 的能力说明,不是绑定某个产品的私有 DSL。
+
+- 如果你的环境有任务面板 / TODO / scratchpad,在 Phase 2 使用它们。
+- 如果你的环境有子代理、并行会话或后台研究线程,在 Phase 3 使用它们。
+- 如果没有这些能力,按相同 phase 串行执行;输出契约与证据标准保持不变。
+- 文中出现的工具名都应理解为"等价能力映射",不是硬依赖。
 
 ## Why This Skill Exists
 
@@ -137,7 +153,7 @@ description: |
 
 **目标**:拆 5-10 个独立子任务。
 
-用 `TaskCreate` 建任务清单。**至少一个任务必须是"Mindset 提取"**。
+用你所在环境的任务清单能力(例如 TODO、任务面板、scratchpad,或手写 checklist)建任务清单。**至少一个任务必须是"Mindset 提取"**。
 
 典型任务集:
 
@@ -157,9 +173,9 @@ description: |
 
 **目标**:把每个任务从"未知"推到"有详实素材"。
 
-策略:Explore agents 并行 + 你自己手动精读核心样本。
+策略:如果环境支持子 agent / 并行上下文,用 2-3 个并行研究线程 + 你自己手动精读核心样本;如果不支持,按同一批 prompt 串行执行。
 
-详细 prompt 模板:[references/explore-prompts.md](./references/explore-prompts.md)。
+详细 prompt 模板:[references/explore-prompts.md](./references/explore-prompts.md)。其中 "Explore" 代表一种只读研究角色,可映射到任意子代理、独立会话或串行研究轮次。
 
 **这个 Phase 重点是 Layer 3**(模式/架构层)。Layer 4 的素材会在 Phase 5 用专门方法提取。
 
@@ -487,15 +503,15 @@ Skill 运行结束前,必须再做一次 run closure。不要以 `M+3-apply-and-
 
 ## Variations(根据仓库类型调整)
 
-| 仓库类型                | Layer 重点 | 调整                                               |
-| ----------------------- | ---------- | -------------------------------------------------- |
-| 小型库(<50 文件)        | L2+L3      | Phase 1+4+6,精简到 5-7 篇文档                      |
-| 超大仓库(>1000 文件)    | L3+L4      | Phase 3 启 5-6 个 Explore agents,文档可能 15-20 篇 |
-| Multi-agent / Framework | L3+L4      | 重点提取架构 mindset + trust boundary              |
-| 学习材料 / cookbook     | L4         | 重点提"作者怎么教学",而非系统设计                  |
-| 商业产品开源            | L4+L5      | 重点提商业 mindset,创造路径围绕"GTM/客户分层"      |
-| 个人项目 / 大佬作品     | L4         | mindset 提取是核心,价值观痕迹特别明显              |
-| 基础设施 / DevOps       | L2+L3      | mindset 抽象较弱,操作流程是主                      |
+| 仓库类型                | Layer 重点 | 调整                                                     |
+| ----------------------- | ---------- | -------------------------------------------------------- |
+| 小型库(<50 文件)        | L2+L3      | Phase 1+4+6,精简到 5-7 篇文档                            |
+| 超大仓库(>1000 文件)    | L3+L4      | Phase 3 启 5-6 个并行研究线程 / 子代理,文档可能 15-20 篇 |
+| Multi-agent / Framework | L3+L4      | 重点提取架构 mindset + trust boundary                    |
+| 学习材料 / cookbook     | L4         | 重点提"作者怎么教学",而非系统设计                        |
+| 商业产品开源            | L4+L5      | 重点提商业 mindset,创造路径围绕"GTM/客户分层"            |
+| 个人项目 / 大佬作品     | L4         | mindset 提取是核心,价值观痕迹特别明显                    |
+| 基础设施 / DevOps       | L2+L3      | mindset 抽象较弱,操作流程是主                            |
 
 ## 核心前提
 
@@ -512,7 +528,7 @@ Skill 运行结束前,必须再做一次 run closure。不要以 `M+3-apply-and-
 
 - [references/mindset-extraction.md](./references/mindset-extraction.md) — Phase 5 的 7 种 mindset 提取方法详解
 - [references/internalization-and-creation.md](./references/internalization-and-creation.md) — Phase 6 的 4 种创造路径 + 落地模板
-- [references/explore-prompts.md](./references/explore-prompts.md) — Phase 3 的 Explore agent prompt 模板
+- [references/explore-prompts.md](./references/explore-prompts.md) — Phase 3 的并行研究 prompt 模板
 - [references/document-templates.md](./references/document-templates.md) — Phase 4 每篇产出文档的章节骨架
 
 工具:
